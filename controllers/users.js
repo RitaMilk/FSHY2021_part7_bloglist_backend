@@ -6,6 +6,17 @@ usersRouter.get('/', async (request, response) => {
   const users = await User.find({}).populate('blogs')
   response.json(users.map(u => u.toJSON()))
 })
+
+usersRouter.get('/:id', async (request, response) => {
+  const user = await (await User.findById(request.params.id).populate('blogs'))
+  if (user) {
+    response.json(user.toJSON())
+  } else {
+    response.status(404).end()
+  }
+})
+
+
 usersRouter.post('/', async (request, response) => {
   const body = request.body
   if (body.password === undefined) {
@@ -15,6 +26,7 @@ usersRouter.post('/', async (request, response) => {
     return response.status(400).json({ error: 'password have to be 3 or more marks' }).end()
   }
   {
+
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 

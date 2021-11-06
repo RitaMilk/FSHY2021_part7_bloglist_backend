@@ -1,0 +1,84 @@
+C:\Users\Ilona\Documents\GitHub\FSHY2021_part4\requests\post_user.rest
+1. add old lady
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "notes": [],
+    "username": "old",
+    "name": "Old lady",
+    "password": "divan"
+}
+
+response
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 79
+ETag: W/"4f-SEcHvsoZSvrAZJ5EFe0IBUg/zzM"
+Date: Mon, 24 May 2021 11:46:20 GMT
+Connection: close
+
+{
+  "blogs": [],
+  "username": "old",
+  "name": "Old lady",
+  "id": "60ab920cdb8e86366443d149"
+}
+
+
+2. login
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "old",
+    "password": "divan"
+}
+response
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 218
+ETag: W/"da-r9tx/7FpIp1d+9t4mzalGXWmevM"
+Date: Mon, 24 May 2021 11:48:05 GMT
+Connection: close
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9sZCIsImlkIjoiNjBhYjkyMGNkYjhlODYzNjY0NDNkMTQ5IiwiaWF0IjoxNjIxODU2ODg1fQ.RiLtpqnwFc8GDojzioA3fUZ-kguVQoe-tmNySZlcScY",
+  "username": "old",
+  "name": "Old lady"
+}
+3. send blog with the authorization
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9sZCIsImlkIjoiNjBhYjkyMGNkYjhlODYzNjY0NDNkMTQ5IiwiaWF0IjoxNjIxODU2ODg1fQ.RiLtpqnwFc8GDojzioA3fUZ-kguVQoe-tmNySZlcScY
+
+{
+"title": "Be strong",
+"author": "Voimalaitos",
+"url": "www.terveystalo.fi",
+"likes": 1
+}
+
+
+response
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 147
+ETag: W/"93-WLR40hHONRWTmLUQ5zbhTkAL3KM"
+Date: Mon, 24 May 2021 12:09:12 GMT
+Connection: close
+
+{
+  "likes": 1,
+  "title": "Be strong",
+  "author": "Voimalaitos",
+  "url": "www.terveystalo.fi",
+  "user": "60ab920cdb8e86366443d149",
+  "id": "60ab9767db8e86366443d14a"
+}

@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9sZCIsImlkIjoiNjBiMjhjNjdmYWQzYzgwNzc4MTUyN2U2IiwiaWF0IjoxNjIyMzE1NjQwfQ.W_Nnm2JtYTvO1vib2N2ldVqVMyJY4L2yg9KTLVUtHec
+
+{
+"title": "missibnh like record",
+"author": "me five",
+"url": "www.fmi.fi"
+}

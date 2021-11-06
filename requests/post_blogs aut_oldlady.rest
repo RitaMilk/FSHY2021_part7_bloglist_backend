@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9sZCIsImlkIjoiNjBiMjYyZjFhMDhjNjgzYzFjMjgxZWY3IiwiaWF0IjoxNjIyMzA0MTc0fQ.xMH04ehXhHZt2KieVYJcC-1pTycIGtpj60e85KLKunQ
+
+{
+"title": "async/await simplifies making async calls in validblog2",
+"author": "JSGuru",
+"url": "https://fullstackopen.com/en/part4/testing_the_backend#more-tests-and-refactoring-the-backend",
+"likes": 1
+}

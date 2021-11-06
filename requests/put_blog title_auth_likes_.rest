@@ -1,0 +1,8 @@
+PUT http://localhost:3003/api/blogs/6097ffb5e221392e30178b95
+Content-Type: application/json
+
+{
+"title": "Pet Shop boys",
+"author": "I am still Jenifer Lopez",
+"likes": 15
+}

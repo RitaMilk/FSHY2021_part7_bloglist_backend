@@ -1,0 +1,66 @@
+Part 4.19 what authorization string to use
+new user
+{
+  "blogs": [],
+  "username": "old",
+  "name": "Old lady",
+  "id": "60a6b43061bed91330d1934e"
+}
+db record
+_id
+:
+60a6b43061bed91330d1934e
+blogs
+:
+Array
+username
+:
+"old"
+name
+:
+"Old lady"
+passwordHash
+:
+"$2b$10$ywPA3I7oKTVJKJxTbsOzo.5p3DePv24sF1S9LIhHxT9Lcq.OkBaX."
+__v
+:
+0
+
+login
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "old",
+    "password": "divan"
+}
+
+response
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9sZCIsImlkIjoiNjBhNmI0MzA2MWJlZDkxMzMwZDE5MzRlIiwiaWF0IjoxNjIxNTM4MzE5fQ.ZEX_KSgSJx-K46UGdK9_aI-IJz4iwNwqNNJdAYiTIoA",
+  "username": "old",
+  "name": "Old lady"
+}
+
+
+send blog
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9sZCIsImlkIjoiNjBhNmI0MzA2MWJlZDkxMzMwZDE5MzRlIiwiaWF0IjoxNjIxNTM4MzE5fQ.ZEX_KSgSJx-K46UGdK9_aI-IJz4iwNwqNNJdAYiTIoA
+
+{
+"title": "Be helth",
+"author": "Jaska Jääskeläien",
+"url": "www.terveystalo.fi",
+"likes": 1
+}
+
+response
+{
+  "likes": 1,
+  "title": "Be helth",
+  "author": "Jaska Jääskeläien",
+  "url": "www.terveystalo.fi",
+  "user": "60a6b43061bed91330d1934e",
+  "id": "60a6b6d461bed91330d1934f"
+}

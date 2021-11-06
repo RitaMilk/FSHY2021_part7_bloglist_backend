@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+"title": "weather in Finland",
+"author": "MTV ankkuri",
+"url": "www.fmi.fi",
+"likes": 10
+}

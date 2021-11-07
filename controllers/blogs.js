@@ -13,7 +13,8 @@ blogsRouter.get('/', async (request, response) => {
 })
 
 blogsRouter.get('/:id', async (request, response) => {
-  const blog = await Blog.findById(request.params.id)
+  const blog = await Blog.findById(request.params.id).
+    populate('user',{ username: 1, name: 1 })
   if (blog) {
     response.json(blog.toJSON())
   } else {
@@ -35,6 +36,9 @@ blogsRouter.post('/', middleware.userExtractor,async (request, response) => {
     user: user._id
   })
   //console.log('5.saving user\'s list of blogs')
+  //part 7.14 related to frintend if own blog
+  blog.user = user
+  //part 7.14 related to frintend if own blog
   const savedBlog = await blog.save()
   user.blogs = user.blogs.concat(savedBlog._id)
   await user.save()

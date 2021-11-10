@@ -1,10 +1,11 @@
-const config = require('../utils/config')
-const jwt = require('jsonwebtoken')
+//const config = require('../utils/config')
+//const jwt = require('jsonwebtoken')
 const blogsRouter = require('express').Router()
 const middleware=require('../utils/middleware')
 //app.use(middleware.tokenExtractor)
 const Blog = require('../models/blog')
-const User = require('../models/user')
+//const User = require('../models/user')
+const Comment=require('../models/comment')
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({}).
@@ -14,7 +15,8 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.get('/:id', async (request, response) => {
   const blog = await Blog.findById(request.params.id).
-    populate('user',{ username: 1, name: 1 })
+    populate('user',{ username: 1, name: 1 }).
+    populate('comment',{ comment:1  })
   if (blog) {
     response.json(blog.toJSON())
   } else {
@@ -27,7 +29,7 @@ blogsRouter.post('/', middleware.userExtractor,async (request, response) => {
   const body = request.body
   const user=request.user
   //
-  //--console.log('users =', user)
+  //console.log('users =', user)
   const blog = new Blog({
     title: body.title,
     author: body.author,
@@ -105,6 +107,29 @@ blogsRouter.put('/:id', async (request, response) => {
   const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
   response.json(updatedBlog.toJSON)
 
+})
+
+blogsRouter.post('/:id/comments', async (request, response) => {
+  //console.log('1.entered blogsPost')
+  const body = request.body
+  //const blogFromRequest=request.params.id
+  //console.log('2.request.body =', request.body)
+  //console.log('3.id=',request.params.id)
+  const comment = new Comment({
+    comment: body.comment,
+    blog: request.params.id
+  })
+  //console.log('4.saving comment')
+  //part 7.14 related to frontend if own blog
+  const blogByIdRequest = await Blog.findById(request.params.id)
+  //console.log('Blog =',blogByIdRequest)
+  comment.blog=request.params.id
+  const savedComment=await comment.save()
+  //console.log('savedComment=',savedComment)
+  blogByIdRequest.comment = blogByIdRequest.comment.concat(savedComment._id)
+  await blogByIdRequest.save()
+  //console.log('blogByIdRequest=',blogByIdRequest)
+  response.json(savedComment.toJSON())
 })
 
 module.exports = blogsRouter
